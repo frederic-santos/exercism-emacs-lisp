@@ -13,8 +13,8 @@
   "Test whether charcater CHAR is a letter.
 Return t if CHAR is within [A-Z] or [a-z]."
   (let ((c (char-to-string char)))
-  (or (string-match "[[:alpha:]]" c)
-      (string-match "[[:space:]]" c))))
+    (or (string-match "[[:alpha:]]" c)
+        (string-match "[[:space:]]" c))))
 
 ;;; Code:
 (defun run-length-encode (s)
