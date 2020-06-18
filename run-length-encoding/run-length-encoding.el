@@ -3,18 +3,17 @@
 ;;; Commentary:
 
 ;;; Helpers:
-(defun string-repeat (x n)
+(defun run-length-encoding--string-repeat (x n)
   "Repeat string X N times."
   (let ((result nil))
     (dotimes (i n result)
       (setq result (concat x result)))))
 
-(defun letter-or-whitespace-p (char)
+(defun run-length-encoding--letter-or-whitespace-p (char)
   "Test whether charcater CHAR is a letter.
 Return t if CHAR is within [A-Z] or [a-z]."
-  (let ((c (char-to-string char)))
-    (or (string-match "[[:alpha:]]" c)
-        (string-match "[[:space:]]" c))))
+  (string-match "[[:alpha:][:space:]]"
+                (char-to-string char)))
 
 ;;; Code:
 (defun run-length-encode (s)
@@ -47,12 +46,12 @@ Return t if CHAR is within [A-Z] or [a-z]."
     (while chars                        ; while not empty
       ;; Update current-char and shorten chars list *at the same time*:
       (setq current-char (pop chars))
-      (if (not (letter-or-whitespace-p current-char))
+      (if (not (run-length-encoding--letter-or-whitespace-p current-char))
           (setq occur (concat occur
                               (char-to-string current-char)))
         ;; else, current-char is a letter:
         (setq result (concat result
-                             (string-repeat (char-to-string current-char)
+                             (run-length-encoding--string-repeat (char-to-string current-char)
                                     (max (string-to-number occur) 1))))
         (setq occur "")))
     result))
