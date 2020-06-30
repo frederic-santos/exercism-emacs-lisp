@@ -6,8 +6,7 @@
 
 (defun acronym (phrase)
   "Convert a PHRASE into its acronym."
-  (let ((length-phrase (length phrase))
-        (result (list (elt phrase 0)))
+  (let ((result (list (elt phrase 0)))
         (start-index 0))
     (while (string-match "[ -]+" phrase start-index)
       ;; Index where the next initial appears:
